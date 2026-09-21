@@ -1,4 +1,3 @@
-HTML
 <!DOCTYPE html>
 <html lang="ko">
 <head>
@@ -8,63 +7,170 @@ HTML
 <style>
   * { box-sizing: border-box; margin: 0; padding: 0; }
   body { font-family: -apple-system, BlinkMacSystemFont, 'Malgun Gothic', 'Apple SD Gothic Neo', sans-serif; background: #eef2f6; padding: 12px; color: #1e293b; }
-  .container { max-width: 1240px; margin: 0 auto; background: #ffffff; padding: 18px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
+  .container { max-width: 1320px; margin: 0 auto; background: #ffffff; padding: 18px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.08); }
   
   .header { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; border-bottom: 2px solid #0284c7; padding-bottom: 12px; margin-bottom: 16px; gap: 10px; }
   h1 { font-size: 20px; font-weight: 800; color: #0f172a; }
   .badge { background: #e0f2fe; color: #0369a1; padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
 
-  /* [최상단 순이익 결과 대형 배너] */
-  .profit-banner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 14px; margin-bottom: 18px; }
-  .profit-card { border-radius: 10px; padding: 14px 16px; color: white; position: relative; box-shadow: 0 4px 12px rgba(0,0,0,0.12); }
-  .profit-card.plan-a { background: linear-gradient(135deg, #065f46 0%, #047857 100%); border: 1.5px solid #10b981; }
-  .profit-card.plan-b { background: linear-gradient(135deg, #1e3a8a 0%, #1d4ed8 100%); border: 1.5px solid #60a5fa; }
-  .profit-card.cost-summary { background: linear-gradient(135deg, #1e293b 0%, #334155 100%); border: 1.5px solid #64748b; }
+  /* [최상단 순이익 결과 배너 - 좌우 분할 슬림형 레이아웃] */
+  .profit-banner-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)); gap: 14px; margin-bottom: 18px; }
+  .profit-card { border-radius: 12px; padding: 14px 16px; color: white; position: relative; box-shadow: 0 4px 14px rgba(0,0,0,0.12); display: flex; flex-direction: column; justify-content: space-between; }
+  .profit-card.plan-a { background: linear-gradient(135deg, #064e3b 0%, #065f46 100%); border: 1.5px solid #10b981; }
+  .profit-card.plan-b { background: linear-gradient(135deg, #172554 0%, #1e3a8a 100%); border: 1.5px solid #3b82f6; }
+  .profit-card.cost-summary { background: linear-gradient(135deg, #0f172a 0%, #1e293b 100%); border: 2px solid #ef4444; }
 
   .profit-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px; }
   .profit-tag { font-size: 11px; font-weight: 800; padding: 3px 8px; border-radius: 4px; }
-  .plan-a .profit-tag { background: #d1fae5; color: #065f46; }
-  .plan-b .profit-tag { background: #dbeafe; color: #1e3a8a; }
-  .cost-summary .profit-tag { background: #f1f5f9; color: #1e293b; }
+  .plan-a .profit-tag { background: #a7f3d0; color: #064e3b; }
+  .plan-b .profit-tag { background: #bfdbfe; color: #1e3a8a; }
+  .cost-summary .profit-tag { background: #fee2e2; color: #b91c1c; }
 
-  .sale-price-input-row { display: flex; align-items: center; gap: 6px; margin-bottom: 10px; }
-  .sale-price-input-row label { font-size: 12px; font-weight: 700; color: #e2e8f0; white-space: nowrap; }
-  .sale-price-input-row input { width: 130px; padding: 5px 8px; font-size: 15px; font-weight: 800; text-align: right; border-radius: 5px; border: 2px solid #fff; color: #0f172a; }
+  .prod-badge-highlight {
+    background: #0369a1;
+    color: #fef08a;
+    font-size: 16px;
+    font-weight: 900;
+    padding: 4px 12px;
+    border-radius: 20px;
+    border: 2px solid #fde047;
+    letter-spacing: 0.5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+  }
+
+  /* 기준 1, 2 카드 내부: 좌측(총순이익) + 우측(지분배분) 가로 2단 배치 */
+  .profit-card-body {
+    display: flex;
+    align-items: stretch;
+    justify-content: space-between;
+    gap: 12px;
+  }
+  .profit-main-section {
+    flex: 1.25;
+    min-width: 0;
+  }
+  .profit-share-section {
+    flex: 0.95;
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 6px;
+    padding-left: 12px;
+    border-left: 1px solid rgba(255,255,255,0.22);
+  }
+
+  .sale-price-input-row { display: flex; align-items: center; gap: 5px; margin-bottom: 8px; }
+  .sale-price-input-row label { font-size: 12px; font-weight: 700; color: #f1f5f9; white-space: nowrap; }
+  .sale-price-input-row input { width: 110px; padding: 4px 6px; font-size: 14px; font-weight: 800; text-align: right; border-radius: 5px; border: 1.5px solid #fff; color: #0f172a; }
   
-  .profit-main-val { font-size: 24px; font-weight: 900; line-height: 1.2; word-break: break-all; }
-  .profit-sub-val { font-size: 15px; font-weight: 700; margin-top: 4px; opacity: 0.9; word-break: break-all; }
-  .profit-unit-val { font-size: 12px; margin-top: 6px; padding-top: 6px; border-top: 1px solid rgba(255,255,255,0.2); color: #f1f5f9; }
+  .profit-main-val { font-size: 21px; font-weight: 900; line-height: 1.2; word-break: break-all; }
+  .profit-sub-val { font-size: 13px; font-weight: 700; margin-top: 2px; opacity: 0.9; word-break: break-all; }
+  .profit-unit-val { font-size: 11px; margin-top: 4px; opacity: 0.88; font-weight: 600; }
 
-  /* 설정 카드 */
-  .config-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 18px; }
-  .config-card { background: #f8fafc; border: 2px solid #94a3b8; border-radius: 8px; padding: 10px 12px; box-shadow: 0 2px 5px rgba(0,0,0,0.03); }
+  /* 우측 지분 박스 */
+  .share-pill {
+    border-radius: 6px;
+    padding: 6px 8px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .share-pill-my {
+    background: #ffffff;
+    color: #0f172a;
+    border: 1.5px solid #fde047;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.18);
+  }
+  .share-pill-my .title {
+    font-size: 10px;
+    font-weight: 900;
+    color: #92400e;
+    background: #fef9c3;
+    padding: 1px 5px;
+    border-radius: 3px;
+    display: inline-block;
+    align-self: flex-start;
+    margin-bottom: 2px;
+  }
+  .share-pill-my .val-krw { font-size: 13px; font-weight: 900; color: #047857; word-break: break-all; }
+  .share-pill-my .val-idr { font-size: 10px; font-weight: 700; color: #dc2626; margin-top: 1px; }
+
+  .share-pill-pt {
+    background: rgba(15, 23, 42, 0.6);
+    color: #ffffff;
+    border: 1px solid rgba(255,255,255,0.25);
+  }
+  .share-pill-pt .title {
+    font-size: 10px;
+    font-weight: 800;
+    color: #cbd5e1;
+    background: rgba(255,255,255,0.15);
+    padding: 1px 5px;
+    border-radius: 3px;
+    display: inline-block;
+    align-self: flex-start;
+    margin-bottom: 2px;
+  }
+  .share-pill-pt .val-krw { font-size: 13px; font-weight: 900; color: #38bdf8; word-break: break-all; }
+  .share-pill-pt .val-idr { font-size: 10px; font-weight: 700; color: #fca5a5; margin-top: 1px; }
+
+  /* 상단 컨트롤러 (높이 일치 정렬) */
+  .config-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(185px, 1fr)); gap: 10px; margin-bottom: 18px; }
+  .config-card {
+    background: #f8fafc; border: 2px solid #94a3b8; border-radius: 8px; padding: 10px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.03);
+    display: flex; flex-direction: column; justify-content: space-between; min-height: 96px;
+  }
   .config-card.highlight { background: #eff6ff; border-color: #3b82f6; }
-  .config-card.rate-card { background: #fefce8; border-color: #eab308; }
-  .config-card label { display: block; font-size: 11px; font-weight: 800; color: #1e293b; margin-bottom: 5px; }
-  .config-card .input-row { display: flex; align-items: center; gap: 6px; }
-  .config-card input { width: 100%; padding: 8px; font-size: 16px; font-weight: 800; text-align: right; border: 1.5px solid #3b82f6; border-radius: 6px; background: #fff; color: #1d4ed8; }
+  .config-card.share-card { background: #ecfdf5; border-color: #10b981; }
+  .config-card.rate-card { background: #fefce8; border-color: #eab308; min-height: 112px; }
+  .config-card label {
+    display: block; font-size: 11px; font-weight: 800; color: #1e293b; margin-bottom: 6px;
+    min-height: 28px; line-height: 1.3;
+  }
+  .config-card .input-row { display: flex; align-items: center; gap: 5px; width: 100%; }
+  .config-card input { width: 100%; padding: 7px 6px; font-size: 15px; font-weight: 800; text-align: right; border: 1.5px solid #3b82f6; border-radius: 6px; background: #fff; color: #1d4ed8; }
+  .config-card.share-card input { border-color: #059669; color: #047857; }
   .config-card.rate-card input { border-color: #ca8a04; color: #a16207; }
   .config-card .unit { font-size: 12px; font-weight: 700; color: #475569; white-space: nowrap; }
-  .btn-rate { background: #0284c7; color: #fff; border: none; border-radius: 6px; padding: 7px 10px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; width: 100%; margin-top: 6px; }
+  .btn-rate { background: #0284c7; color: #fff; border: none; border-radius: 6px; padding: 6px; font-size: 11px; font-weight: 700; cursor: pointer; white-space: nowrap; width: 100%; margin-top: 5px; }
   .btn-rate:hover { background: #0369a1; }
-  .rate-status { font-size: 10px; color: #65a30d; margin-top: 4px; font-weight: 600; text-align: center; }
+  .rate-status { font-size: 10px; color: #65a30d; margin-top: 3px; font-weight: 600; text-align: center; }
 
   /* 테이블 */
   .table-wrapper { overflow-x: auto; -webkit-overflow-scrolling: touch; border-radius: 8px; border: 1px solid #cbd5e1; margin-bottom: 20px; }
-  table { width: 100%; border-collapse: collapse; min-width: 940px; font-size: 13px; }
-  th, td { border: 1px solid #cbd5e1; padding: 7px 6px; }
+  table { width: 100%; border-collapse: collapse; min-width: 1020px; font-size: 13px; }
+  th, td { border: 1px solid #cbd5e1; padding: 7px 5px; }
   th { background: #f1f5f9; color: #1e293b; font-weight: 800; text-align: center; font-size: 12px; }
   .sec-title { font-weight: 800; text-align: center; vertical-align: middle; background: #f8fafc; }
   
+  .cell-flex { display: flex; align-items: center; gap: 3px; justify-content: flex-end; width: 100%; }
   input.tbl-in { width: 100%; padding: 6px 4px; border: 1px solid #94a3b8; border-radius: 4px; text-align: right; font-size: 13px; font-weight: 700; background: #fff; }
   input.tbl-in:focus { outline: none; border-color: #0284c7; background: #f0f9ff; box-shadow: 0 0 0 2px rgba(2,132,199,0.2); }
-  .item-name { font-weight: 700; color: #0f172a; text-align: left; padding-left: 10px; }
-  .unit-tag { font-size: 11px; color: #64748b; margin-left: 2px; }
+  input.tbl-txt { text-align: left; font-weight: 600; }
+  .item-name { font-weight: 700; color: #0f172a; text-align: left; padding-left: 8px; }
+  .unit-tag { font-size: 11px; font-weight: 700; color: #475569; white-space: nowrap; min-width: 14px; }
   .calc-text { font-size: 11px; color: #64748b; line-height: 1.35; }
 
-  .amount-cell { text-align: right; font-weight: 700; }
+  .amount-cell { text-align: right; font-weight: 700; white-space: nowrap; }
   .amount-krw { color: #0f172a; font-size: 13px; font-weight: 800; }
   .amount-idr { color: #dc2626; font-size: 11px; margin-top: 2px; font-weight: 700; }
+
+  /* [추가 자유 항목 행 - 은은하고 소프트한 스타일] */
+  .custom-row { background: #fafbfc; }
+  .custom-row input.tbl-in {
+    border: 1px dashed #cbd5e1;
+    background: #ffffff;
+    color: #64748b;
+    font-size: 11px;
+    font-weight: 600;
+    padding: 5px 4px;
+  }
+  .custom-row input.tbl-in::placeholder { color: #94a3b8; font-weight: 500; font-size: 11px; }
+  .custom-row input.tbl-in:focus { border: 1.5px solid #93c5fd; background: #f8fafc; color: #1e293b; }
+  .custom-row .amount-krw { font-size: 11px; font-weight: 700; color: #64748b; }
+  .custom-row .amount-idr { font-size: 10px; font-weight: 600; color: #94a3b8; }
 
   .cat-fuel { background: #fef3c7; color: #92400e; }
   .cat-rent { background: #e0e7ff; color: #3730a3; }
@@ -75,7 +181,7 @@ HTML
 
   .note-box { background: #f8fafc; border-left: 4px solid #0284c7; padding: 12px 16px; border-radius: 0 8px 8px 0; font-size: 12px; color: #334155; line-height: 1.65; }
 
-  /* [보안 잠금 화면 전용 스타일] */
+  /* 비밀번호 잠금 창 */
   #auth-overlay {
     position: fixed; top: 0; left: 0; width: 100%; height: 100%;
     background: #0f172a; z-index: 99999;
@@ -98,11 +204,71 @@ HTML
   }
   .auth-btn:hover { background: #0369a1; }
   .auth-error { color: #ef4444; font-size: 12px; font-weight: bold; margin-top: 10px; display: none; }
+
+  /* 데이터 저장 및 초기화 버튼 스타일 */
+  .header-actions { display: flex; gap: 8px; align-items: center; }
+  .btn-save { background: #16a34a; color: #fff; border: none; border-radius: 6px; padding: 7px 12px; font-size: 12px; font-weight: 800; cursor: pointer; display: flex; align-items: center; gap: 4px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); }
+  .btn-save:hover { background: #15803d; }
+  .btn-reset { background: #64748b; color: #fff; border: none; border-radius: 6px; padding: 7px 10px; font-size: 12px; font-weight: 700; cursor: pointer; }
+  .btn-reset:hover { background: #475569; }
+
+  /* 토스트 알림창 */
+  .toast-msg {
+    position: fixed; bottom: 20px; right: 20px; z-index: 999999;
+    background: #0f172a; color: #38bdf8; padding: 12px 20px; border-radius: 8px;
+    font-size: 13px; font-weight: 800; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    border: 1px solid #38bdf8; display: none; opacity: 0; transition: opacity 0.3s ease;
+  }
+  .toast-msg.show { display: block; opacity: 1; }
+
+  /* 스마트폰/모바일 최적화 미디어 쿼리 */
+  @media screen and (max-width: 768px) {
+    body { padding: 6px; }
+    .container { padding: 10px; border-radius: 8px; }
+    h1 { font-size: 16px; }
+    .badge { font-size: 11px; padding: 3px 8px; }
+    .header-actions { width: 100%; justify-content: flex-end; margin-top: 4px; }
+
+    .profit-banner-grid { grid-template-columns: 1fr; gap: 10px; margin-bottom: 12px; }
+    .profit-card { padding: 12px; }
+    .profit-card-body { flex-direction: column; gap: 10px; }
+    .profit-share-section {
+      padding-left: 0;
+      border-left: none;
+      border-top: 1px solid rgba(255,255,255,0.22);
+      padding-top: 8px;
+      flex-direction: row;
+    }
+    .share-pill { flex: 1; padding: 6px; }
+
+    .profit-main-val { font-size: 19px; }
+    .profit-sub-val { font-size: 12px; }
+    .prod-badge-highlight { font-size: 14px; padding: 4px 10px; }
+    .sale-price-input-row input { width: 100px; font-size: 13px; padding: 4px 5px; }
+
+    .config-grid { grid-template-columns: repeat(2, 1fr); gap: 8px; margin-bottom: 14px; }
+    .config-card { padding: 8px; min-height: 84px; }
+    .config-card.rate-card { min-height: 98px; grid-column: span 2; }
+    .config-card label { font-size: 10px; min-height: auto; margin-bottom: 4px; }
+    .config-card input { font-size: 13px; padding: 5px 4px; }
+    .config-card .unit { font-size: 11px; }
+
+    table { min-width: 720px; font-size: 11px; }
+    th, td { padding: 5px 3px; }
+    th { font-size: 11px; }
+    .item-name { font-size: 11px; padding-left: 4px; }
+    input.tbl-in { font-size: 11px; padding: 4px 2px; }
+    .unit-tag { font-size: 10px; min-width: 10px; }
+    .amount-krw { font-size: 11px; }
+    .amount-idr { font-size: 10px; }
+    .calc-text { font-size: 10px; line-height: 1.2; }
+    .note-box { font-size: 11px; padding: 10px; }
+  }
 </style>
 </head>
 <body>
 
-<!-- [비밀번호 보안 인증 창] -->
+<!-- 비밀번호 보안 인증 창 (비밀번호: 0078) -->
 <div id="auth-overlay">
   <div class="auth-card">
     <div style="font-size: 38px; margin-bottom: 10px;">🔒</div>
@@ -117,64 +283,117 @@ HTML
 <div class="container">
   <div class="header">
     <div>
-      <h1>골재 생산단가 및 월 순이익 자동산출기</h1>
-      <span class="badge">판매단가 2종 실시간 순이익 분석 + 중장비 분리 + 원화·루피아 동시산출</span>
+      <h1>골재 생산단가 및 월 순이익 산출기</h1>
+      <span class="badge">자동 저장 지원 + 모바일 최적화 + 지분분할 완비</span>
+    </div>
+    <div class="header-actions">
+      <button class="btn-save" onclick="saveAllData(true)">💾 입력 데이터 저장</button>
+      <button class="btn-reset" onclick="resetAllData()">🔄 기본값 복원</button>
     </div>
   </div>
+  <div id="toast-msg" class="toast-msg"></div>
 
-  <!-- [1. 최상단 실시간 순이익 분석 배너] -->
+  <!-- [1. 최상단 실시간 순이익 및 지분분배 배너] -->
   <div class="profit-banner-grid">
-    <!-- 기준 A 순이익 카드 -->
+    <!-- 기준 A 순이익 & 지분 배분 카드 -->
     <div class="profit-card plan-a">
       <div class="profit-head">
-        <span class="profit-tag">기준 ① 순이익 분석</span>
-        <span style="font-size:12px; opacity:0.85;">월 생산량 연동</span>
+        <span class="profit-tag">기준 ① 수지분석</span>
+        <span style="font-size:12px; opacity:0.9;">생산량 전액 연동</span>
       </div>
-      <div class="sale-price-input-row">
-        <label>판매가격(IDR/m³):</label>
-        <input type="text" inputmode="numeric" id="sale_price_a" value="90,000" oninput="formatField(this); calculate();">
-        <span style="font-size:12px; font-weight:700;">루피아</span>
+
+      <div class="profit-card-body">
+        <div class="profit-main-section">
+          <div class="sale-price-input-row">
+            <label>판매단가(IDR):</label>
+            <input type="text" inputmode="numeric" id="sale_price_a" value="85,000" oninput="formatField(this); calculate();">
+            <span style="font-size:11px; font-weight:700;">루피아</span>
+          </div>
+          <div style="font-size:11px; opacity:0.85;">총 월 순이익 (전체 100%)</div>
+          <div class="profit-main-val" id="profit_a_krw">0 원</div>
+          <div class="profit-sub-val" id="profit_a_idr">Rp 0</div>
+          <div class="profit-unit-val" id="profit_a_unit">m³당 순이익: 0원 (Rp 0)</div>
+        </div>
+
+        <div class="profit-share-section">
+          <div class="share-pill share-pill-my">
+            <div class="title" id="tag_share_my_a">내 몫 (60%)</div>
+            <div class="val-krw" id="share_my_a_krw">0 원</div>
+            <div class="val-idr" id="share_my_a_idr">Rp 0</div>
+          </div>
+          <div class="share-pill share-pill-pt">
+            <div class="title" id="tag_share_pt_a">동업자 (40%)</div>
+            <div class="val-krw" id="share_pt_a_krw">0 원</div>
+            <div class="val-idr" id="share_pt_a_idr">Rp 0</div>
+          </div>
+        </div>
       </div>
-      <div style="font-size:11px; opacity:0.85;">총 월 순이익 (Net Profit)</div>
-      <div class="profit-main-val" id="profit_a_krw">0 원</div>
-      <div class="profit-sub-val" id="profit_a_idr">Rp 0</div>
-      <div class="profit-unit-val" id="profit_a_unit">m³당 순이익: 0원 (Rp 0)</div>
     </div>
 
-    <!-- 기준 B 순이익 카드 -->
+    <!-- 기준 B 순이익 & 지분 배분 카드 -->
     <div class="profit-card plan-b">
       <div class="profit-head">
-        <span class="profit-tag">기준 ② 순이익 분석</span>
-        <span style="font-size:12px; opacity:0.85;">월 생산량 연동</span>
+        <span class="profit-tag">기준 ② 수지분석</span>
+        <span style="font-size:12px; opacity:0.9;">생산량 전액 연동</span>
       </div>
-      <div class="sale-price-input-row">
-        <label>판매가격(IDR/m³):</label>
-        <input type="text" inputmode="numeric" id="sale_price_b" value="105,000" oninput="formatField(this); calculate();">
-        <span style="font-size:12px; font-weight:700;">루피아</span>
+
+      <div class="profit-card-body">
+        <div class="profit-main-section">
+          <div class="sale-price-input-row">
+            <label>판매단가(IDR):</label>
+            <input type="text" inputmode="numeric" id="sale_price_b" value="105,000" oninput="formatField(this); calculate();">
+            <span style="font-size:11px; font-weight:700;">루피아</span>
+          </div>
+          <div style="font-size:11px; opacity:0.85;">총 월 순이익 (전체 100%)</div>
+          <div class="profit-main-val" id="profit_b_krw">0 원</div>
+          <div class="profit-sub-val" id="profit_b_idr">Rp 0</div>
+          <div class="profit-unit-val" id="profit_b_unit">m³당 순이익: 0원 (Rp 0)</div>
+        </div>
+
+        <div class="profit-share-section">
+          <div class="share-pill share-pill-my">
+            <div class="title" id="tag_share_my_b">내 몫 (60%)</div>
+            <div class="val-krw" id="share_my_b_krw">0 원</div>
+            <div class="val-idr" id="share_my_b_idr">Rp 0</div>
+          </div>
+          <div class="share-pill share-pill-pt">
+            <div class="title" id="tag_share_pt_b">동업자 (40%)</div>
+            <div class="val-krw" id="share_pt_b_krw">0 원</div>
+            <div class="val-idr" id="share_pt_b_idr">Rp 0</div>
+          </div>
+        </div>
       </div>
-      <div style="font-size:11px; opacity:0.85;">총 월 순이익 (Net Profit)</div>
-      <div class="profit-main-val" id="profit_b_krw">0 원</div>
-      <div class="profit-sub-val" id="profit_b_idr">Rp 0</div>
-      <div class="profit-unit-val" id="profit_b_unit">m³당 순이익: 0원 (Rp 0)</div>
     </div>
 
     <!-- 총 지출 원가 요약 카드 -->
     <div class="profit-card cost-summary">
-      <div class="profit-head">
-        <span class="profit-tag">총 지출 원가 요약</span>
-        <span style="font-size:12px; opacity:0.85;" id="disp_base_prod">60,000 m³</span>
+      <div>
+        <div class="profit-head">
+          <span class="profit-tag">총 지출 원가 요약</span>
+          <span class="prod-badge-highlight" id="disp_base_prod">60,000 m³ 기준</span>
+        </div>
+        <div style="margin-top: 10px; font-size:11px; color:#fca5a5; font-weight:700;">월 총 지출 원가 (Total Monthly Cost)</div>
+        <div class="profit-main-val" style="color:#f87171;" id="total_cost_krw">0 원</div>
+        <div class="profit-sub-val" style="color:#f87171;" id="total_cost_idr">Rp 0</div>
       </div>
-      <div style="margin-top: 14px; font-size:11px; opacity:0.85;">총 지출 원가 (Total Monthly Expense)</div>
-      <div class="profit-main-val" style="color:#38bdf8;" id="total_cost_krw">0 원</div>
-      <div class="profit-sub-val" style="color:#f87171;" id="total_cost_idr">Rp 0</div>
-      <div class="profit-unit-val" id="unit_cost_disp">m³당 생산단가: 0원 (Rp 0)</div>
+      <div class="profit-unit-val" style="margin-top:14px; padding-top:8px; border-top:1px solid rgba(255,255,255,0.2); font-size:13px; font-weight:700; color:#fca5a5;" id="unit_cost_disp">m³당 생산원가: 0원 (Rp 0)</div>
     </div>
   </div>
 
-  <!-- [2. 상단 생산/유가/일수/환율 컨트롤러] -->
+  <!-- [2. 상단 생산/유가/일수/환율/지분배분율 컨트롤러] -->
   <div class="config-grid">
+    <div class="config-card share-card">
+      <label>① 동업자 지분 분배율<br>(내 지분 / 동업자)</label>
+      <div class="input-row">
+        <input type="number" id="my_share_ratio" value="60" min="0" max="100" style="width:50%; font-weight:900;" oninput="syncShareRatio(); calculate();">
+        <span class="unit">% :</span>
+        <input type="number" id="partner_share_ratio" value="40" min="0" max="100" style="width:50%; background:#f1f5f9; font-weight:900;" readonly>
+        <span class="unit">%</span>
+      </div>
+    </div>
+
     <div class="config-card highlight">
-      <label>월 기준 생산량</label>
+      <label>② 월 기준 생산량<br>&nbsp;</label>
       <div class="input-row">
         <input type="text" inputmode="numeric" id="base_prod" value="60,000" oninput="handleTopControl();">
         <span class="unit">m³</span>
@@ -182,7 +401,7 @@ HTML
     </div>
 
     <div class="config-card highlight">
-      <label>경유 리터당 단가 (전 장비 일괄반영)</label>
+      <label>③ 경유 리터당 단가<br>(전 장비 일괄반영)</label>
       <div class="input-row">
         <input type="text" inputmode="numeric" id="base_oil_price" value="1,400" oninput="handleTopControl();">
         <span class="unit">원/L</span>
@@ -190,7 +409,7 @@ HTML
     </div>
 
     <div class="config-card highlight">
-      <label>월 작업일수 (유류/식대 일괄반영)</label>
+      <label>④ 월 작업일수<br>(유류/식대 일괄반영)</label>
       <div class="input-row">
         <input type="text" inputmode="numeric" id="work_days" value="26" oninput="handleTopControl();">
         <span class="unit">일</span>
@@ -198,7 +417,7 @@ HTML
     </div>
 
     <div class="config-card highlight">
-      <label>1식 식대 단가 (전 식대 일괄반영)</label>
+      <label>⑤ 1식 식대 단가<br>(전 식대 일괄반영)</label>
       <div class="input-row">
         <input type="text" inputmode="numeric" id="meal_price" value="3,500" oninput="handleTopControl();">
         <span class="unit">원/식</span>
@@ -206,7 +425,7 @@ HTML
     </div>
 
     <div class="config-card rate-card">
-      <label>100 루피아(IDR)당 원화</label>
+      <label>⑥ 100 루피아당 원화<br>&nbsp;</label>
       <div class="input-row">
         <input type="text" inputmode="decimal" id="rate_krw_100idr" value="8.5" oninput="formatField(this, true); calculate();">
         <span class="unit">원</span>
@@ -223,313 +442,629 @@ HTML
         <tr>
           <th style="width: 7%;">구분</th>
           <th style="width: 17%;">항목</th>
-          <th style="width: 14%;">단가 (원)</th>
-          <th style="width: 10%;">수량 (대수/인원/식)</th>
-          <th style="width: 12%;">소비량/산정기준</th>
-          <th style="width: 18%;">금액 (원화 KRW / 루피아 IDR)</th>
-          <th style="width: 22%;">비고 및 산출공식</th>
+          <th style="width: 13%;">단가 (원)</th>
+          <th style="width: 12%;">수량 (대/명/식)</th>
+          <th style="width: 14%;">소비량/산정기준</th>
+          <th style="width: 16%;">금액 (KRW / IDR)</th>
+          <th style="width: 21%;">비고 및 산출공식</th>
         </tr>
       </thead>
       <tbody>
 
         <!-- [1] 재료비 -->
         <tr>
-          <td rowspan="7" class="sec-title cat-fuel">재료비<br>(경유/유류)</td>
+          <td rowspan="9" class="sec-title cat-fuel">재료비<br>(경유/유류)</td>
           <td class="item-name">준설선 경유</td>
           <td><input type="text" inputmode="numeric" class="tbl-in oil-sync-target" id="p_fuel_dredge" value="1,400" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_dredge_num" value="1" oninput="formatField(this); syncFuelVolumes(); calculate();"><span class="unit-tag">대</span></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="v_fuel_dredge" value="39,780" oninput="formatField(this); calculate();"><span class="unit-tag">L</span></td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_dredge_num" value="1" oninput="formatField(this); syncFuelVolumes(); calculate();">
+              <span class="unit-tag">대</span>
+            </div>
+          </td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="v_fuel_dredge" value="39,780" oninput="formatField(this); calculate();">
+              <span class="unit-tag">L</span>
+            </div>
+          </td>
           <td class="amount-cell"><div class="amount-krw" id="amt_fuel_dredge_krw"></div><div class="amount-idr" id="amt_fuel_dredge_idr"></div></td>
           <td class="calc-text">1일 9시간 × 170L × 작업일수 = 대당 월 소모량</td>
         </tr>
         <tr>
           <td class="item-name">굴삭기 경유</td>
           <td><input type="text" inputmode="numeric" class="tbl-in oil-sync-target" id="p_fuel_excav" value="1,400" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_excav_fuel_num" value="3" oninput="formatField(this); syncFuelVolumes(); calculate();"><span class="unit-tag">대</span></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="v_fuel_excav" value="15,600" oninput="formatField(this); calculate();"><span class="unit-tag">L</span></td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_excav_fuel_num" value="3" oninput="formatField(this); syncFuelVolumes(); calculate();">
+              <span class="unit-tag">대</span>
+            </div>
+          </td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="v_fuel_excav" value="15,600" oninput="formatField(this); calculate();">
+              <span class="unit-tag">L</span>
+            </div>
+          </td>
           <td class="amount-cell"><div class="amount-krw" id="amt_fuel_excav_krw"></div><div class="amount-idr" id="amt_fuel_excav_idr"></div></td>
           <td class="calc-text">대당 200L × 작업일수 × 굴삭기 대수</td>
         </tr>
         <tr>
           <td class="item-name">로우더 경유</td>
           <td><input type="text" inputmode="numeric" class="tbl-in oil-sync-target" id="p_fuel_loader" value="1,400" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_loader_fuel_num" value="1" oninput="formatField(this); syncFuelVolumes(); calculate();"><span class="unit-tag">대</span></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="v_fuel_loader" value="5,200" oninput="formatField(this); calculate();"><span class="unit-tag">L</span></td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_loader_fuel_num" value="1" oninput="formatField(this); syncFuelVolumes(); calculate();">
+              <span class="unit-tag">대</span>
+            </div>
+          </td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="v_fuel_loader" value="5,200" oninput="formatField(this); calculate();">
+              <span class="unit-tag">L</span>
+            </div>
+          </td>
           <td class="amount-cell"><div class="amount-krw" id="amt_fuel_loader_krw"></div><div class="amount-idr" id="amt_fuel_loader_idr"></div></td>
           <td class="calc-text">대당 200L × 작업일수 × 로우더 대수</td>
         </tr>
         <tr>
           <td class="item-name">발전기 1호기 경유</td>
           <td><input type="text" inputmode="numeric" class="tbl-in oil-sync-target" id="p_fuel_gen1" value="1,400" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_gen1_num" value="1" oninput="formatField(this); syncFuelVolumes(); calculate();"><span class="unit-tag">대</span></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="v_fuel_gen1" value="9,360" oninput="formatField(this); calculate();"><span class="unit-tag">L</span></td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_gen1_num" value="1" oninput="formatField(this); syncFuelVolumes(); calculate();">
+              <span class="unit-tag">대</span>
+            </div>
+          </td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="v_fuel_gen1" value="9,360" oninput="formatField(this); calculate();">
+              <span class="unit-tag">L</span>
+            </div>
+          </td>
           <td class="amount-cell"><div class="amount-krw" id="amt_fuel_gen1_krw"></div><div class="amount-idr" id="amt_fuel_gen1_idr"></div></td>
           <td class="calc-text">1일 9시간 × 40L × 작업일수</td>
         </tr>
         <tr>
           <td class="item-name">발전기 2호기 경유</td>
           <td><input type="text" inputmode="numeric" class="tbl-in oil-sync-target" id="p_fuel_gen2" value="1,400" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_gen2_num" value="1" oninput="formatField(this); syncFuelVolumes(); calculate();"><span class="unit-tag">대</span></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="v_fuel_gen2" value="3,120" oninput="formatField(this); calculate();"><span class="unit-tag">L</span></td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_gen2_num" value="1" oninput="formatField(this); syncFuelVolumes(); calculate();">
+              <span class="unit-tag">대</span>
+            </div>
+          </td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="v_fuel_gen2" value="3,120" oninput="formatField(this); calculate();">
+              <span class="unit-tag">L</span>
+            </div>
+          </td>
           <td class="amount-cell"><div class="amount-krw" id="amt_fuel_gen2_krw"></div><div class="amount-idr" id="amt_fuel_gen2_idr"></div></td>
           <td class="calc-text">1일 3시간 × 40L × 작업일수</td>
         </tr>
         <tr>
           <td class="item-name">덤프트럭 경유</td>
           <td><input type="text" inputmode="numeric" class="tbl-in oil-sync-target" id="p_fuel_dump" value="1,400" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_dump_fuel_num" value="7" oninput="formatField(this); syncFuelVolumes(); calculate();"><span class="unit-tag">대</span></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="v_fuel_dump" value="13,650" oninput="formatField(this); calculate();"><span class="unit-tag">L</span></td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_dump_fuel_num" value="7" oninput="formatField(this); syncFuelVolumes(); calculate();">
+              <span class="unit-tag">대</span>
+            </div>
+          </td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="v_fuel_dump" value="13,650" oninput="formatField(this); calculate();">
+              <span class="unit-tag">L</span>
+            </div>
+          </td>
           <td class="amount-cell"><div class="amount-krw" id="amt_fuel_dump_krw"></div><div class="amount-idr" id="amt_fuel_dump_idr"></div></td>
           <td class="calc-text">대당 75L × 작업일수 × 덤프 대수</td>
         </tr>
         <tr>
           <td class="item-name" style="background:#fcfcfc;">절유 (엔진오일/구리스)</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_oil_misc" value="3,000,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_oil_misc" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">식</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_oil_misc" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">식</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_oil_misc_krw"></div><div class="amount-idr" id="amt_oil_misc_idr"></div></td>
           <td class="calc-text">유압유, 기어오일, 구리스 등 일괄</td>
+        </tr>
+        <!-- 은은한 추가 재료비 1, 2 ([소비량/기준] 입력창 완비) -->
+        <tr class="custom-row">
+          <td><input type="text" class="tbl-in tbl-txt" id="name_custom_fuel1" placeholder="+ 추가 재료비 1"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="p_custom_fuel1" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_custom_fuel1" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="v_custom_fuel1" placeholder="소비량/기준"></td>
+          <td class="amount-cell"><div class="amount-krw" id="amt_custom_fuel1_krw">0 원</div><div class="amount-idr" id="amt_custom_fuel1_idr">Rp 0</div></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="rem_custom_fuel1" placeholder="비고 입력"></td>
+        </tr>
+        <tr class="custom-row">
+          <td><input type="text" class="tbl-in tbl-txt" id="name_custom_fuel2" placeholder="+ 추가 재료비 2"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="p_custom_fuel2" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_custom_fuel2" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="v_custom_fuel2" placeholder="소비량/기준"></td>
+          <td class="amount-cell"><div class="amount-krw" id="amt_custom_fuel2_krw">0 원</div><div class="amount-idr" id="amt_custom_fuel2_idr">Rp 0</div></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="rem_custom_fuel2" placeholder="비고 입력"></td>
         </tr>
 
         <!-- [2] 임대료 -->
         <tr>
-          <td rowspan="3" class="sec-title cat-rent">임대료<br>(중장비)</td>
+          <td rowspan="5" class="sec-title cat-rent">임대료<br>(중장비)</td>
           <td class="item-name">굴삭기 임대료</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_rent_excav" value="11,440,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_rent_excav" value="3" oninput="formatField(this); syncExcavCount(); calculate();"><span class="unit-tag">대</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_rent_excav" value="3" oninput="formatField(this); syncExcavCount(); calculate();">
+              <span class="unit-tag">대</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_rent_excav_krw"></div><div class="amount-idr" id="amt_rent_excav_idr"></div></td>
           <td class="calc-text">대당 11,440,000원 × 대수 (원 장부 4대 45,760,000원)</td>
         </tr>
         <tr>
           <td class="item-name">로우더 임대료</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_rent_loader" value="11,440,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_rent_loader" value="1" oninput="formatField(this); syncLoaderCount(); calculate();"><span class="unit-tag">대</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_rent_loader" value="1" oninput="formatField(this); syncLoaderCount(); calculate();">
+              <span class="unit-tag">대</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_rent_loader_krw"></div><div class="amount-idr" id="amt_rent_loader_idr"></div></td>
           <td class="calc-text">대당 11,440,000원 × 대수</td>
         </tr>
         <tr>
           <td class="item-name">덤프트럭 임대료</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_rent_dump" value="4,000,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_rent_dump" value="7" oninput="formatField(this); syncDumpCount(); calculate();"><span class="unit-tag">대</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_rent_dump" value="7" oninput="formatField(this); syncDumpCount(); calculate();">
+              <span class="unit-tag">대</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_rent_dump_krw"></div><div class="amount-idr" id="amt_rent_dump_idr"></div></td>
           <td class="calc-text">대당 월 4,000,000원 (기사임금 포함) × 대수</td>
+        </tr>
+        <!-- 은은한 추가 임대료 1, 2 ([소비량/기준] 입력창 완비) -->
+        <tr class="custom-row">
+          <td><input type="text" class="tbl-in tbl-txt" id="name_custom_rent1" placeholder="+ 추가 임대료 1"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="p_custom_rent1" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_custom_rent1" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="v_custom_rent1" placeholder="소비량/기준"></td>
+          <td class="amount-cell"><div class="amount-krw" id="amt_custom_rent1_krw">0 원</div><div class="amount-idr" id="amt_custom_rent1_idr">Rp 0</div></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="rem_custom_rent1" placeholder="비고 입력"></td>
+        </tr>
+        <tr class="custom-row">
+          <td><input type="text" class="tbl-in tbl-txt" id="name_custom_rent2" placeholder="+ 추가 임대료 2"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="p_custom_rent2" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_custom_rent2" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="v_custom_rent2" placeholder="소비량/기준"></td>
+          <td class="amount-cell"><div class="amount-krw" id="amt_custom_rent2_krw">0 원</div><div class="amount-idr" id="amt_custom_rent2_idr">Rp 0</div></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="rem_custom_rent2" placeholder="비고 입력"></td>
         </tr>
 
         <!-- [3] 유지비 -->
         <tr>
-          <td rowspan="5" class="sec-title cat-maint">유지비<br>(수리/부품)</td>
+          <td rowspan="7" class="sec-title cat-maint">유지비<br>(수리/부품)</td>
           <td class="item-name">준설선 주요부품</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_dredge_part" value="12,800,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_dredge_part" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">식</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_dredge_part" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">식</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_dredge_part_krw"></div><div class="amount-idr" id="amt_dredge_part_idr"></div></td>
           <td class="calc-text">케이싱, 임펠러 연2회 (76,700,000×2회÷12개월)</td>
         </tr>
         <tr>
           <td class="item-name">준설선 수리 예비비</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_dredge_maint" value="3,000,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_dredge_maint" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">척</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_dredge_maint" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">척</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_dredge_maint_krw"></div><div class="amount-idr" id="amt_dredge_maint_idr"></div></td>
           <td class="calc-text">준설선 선체 및 펌프 수리비</td>
         </tr>
         <tr>
           <td class="item-name">굴삭기·로우더 유지비</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_heavy_maint" value="500,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_heavy_maint" value="4" oninput="formatField(this); calculate();"><span class="unit-tag">대</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_heavy_maint" value="4" oninput="formatField(this); calculate();">
+              <span class="unit-tag">대</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_heavy_maint_krw"></div><div class="amount-idr" id="amt_heavy_maint_idr"></div></td>
           <td class="calc-text">대당 500,000원 × 4대 (총 2,000,000원)</td>
         </tr>
         <tr>
           <td class="item-name">차량 / 오토바이</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_car_maint" value="1,000,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_car_maint" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">식</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_car_maint" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">식</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_car_maint_krw"></div><div class="amount-idr" id="amt_car_maint_idr"></div></td>
           <td class="calc-text">현장 이동차량 및 오토바이 기름값/수리비</td>
         </tr>
         <tr>
           <td class="item-name">발전기 수리비</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_gen_maint" value="250,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_gen_maint" value="2" oninput="formatField(this); calculate();"><span class="unit-tag">대</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_gen_maint" value="2" oninput="formatField(this); calculate();">
+              <span class="unit-tag">대</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_gen_maint_krw"></div><div class="amount-idr" id="amt_gen_maint_idr"></div></td>
           <td class="calc-text">대당 250,000원 × 2대 (총 500,000원)</td>
+        </tr>
+        <!-- 은은한 추가 유지비 1, 2 ([소비량/기준] 입력창 완비) -->
+        <tr class="custom-row">
+          <td><input type="text" class="tbl-in tbl-txt" id="name_custom_maint1" placeholder="+ 추가 유지비 1"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="p_custom_maint1" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_custom_maint1" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="v_custom_maint1" placeholder="소비량/기준"></td>
+          <td class="amount-cell"><div class="amount-krw" id="amt_custom_maint1_krw">0 원</div><div class="amount-idr" id="amt_custom_maint1_idr">Rp 0</div></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="rem_custom_maint1" placeholder="비고 입력"></td>
+        </tr>
+        <tr class="custom-row">
+          <td><input type="text" class="tbl-in tbl-txt" id="name_custom_maint2" placeholder="+ 추가 유지비 2"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="p_custom_maint2" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_custom_maint2" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="v_custom_maint2" placeholder="소비량/기준"></td>
+          <td class="amount-cell"><div class="amount-krw" id="amt_custom_maint2_krw">0 원</div><div class="amount-idr" id="amt_custom_maint2_idr">Rp 0</div></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="rem_custom_maint2" placeholder="비고 입력"></td>
         </tr>
 
         <!-- [4] 노무비 -->
         <tr>
-          <td rowspan="7" class="sec-title cat-labor">노무비<br>(13/12개월)</td>
+          <td rowspan="9" class="sec-title cat-labor">노무비<br>(13/12개월)</td>
           <td class="item-name">현장관리 (한국인)</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_mgr" value="8,000,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_mgr" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">명</span></td>
-          <td class="calc-text">퇴직금 연13회÷12</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_mgr" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">명</span>
+            </div>
+          </td>
+          <td class="calc-text" style="text-align:center;">퇴직금 연13회÷12</td>
           <td class="amount-cell"><div class="amount-krw" id="amt_mgr_krw"></div><div class="amount-idr" id="amt_mgr_idr"></div></td>
           <td class="calc-text">기본 8,000,000원 × 1명 × 13/12</td>
         </tr>
         <tr>
           <td class="item-name">선원 (한국인)</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_kr_crew" value="8,000,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_kr_crew" value="2" oninput="formatField(this); calculate();"><span class="unit-tag">명</span></td>
-          <td class="calc-text">퇴직금 연13회÷12</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_kr_crew" value="2" oninput="formatField(this); calculate();">
+              <span class="unit-tag">명</span>
+            </div>
+          </td>
+          <td class="calc-text" style="text-align:center;">퇴직금 연13회÷12</td>
           <td class="amount-cell"><div class="amount-krw" id="amt_kr_crew_krw"></div><div class="amount-idr" id="amt_kr_crew_idr"></div></td>
           <td class="calc-text">인당 8,000,000원 × 2명 × 13/12</td>
         </tr>
         <tr>
           <td class="item-name">선원 (현지인)</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_loc_crew" value="800,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_loc_crew" value="2" oninput="formatField(this); calculate();"><span class="unit-tag">명</span></td>
-          <td class="calc-text">퇴직금 연13회÷12</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_loc_crew" value="2" oninput="formatField(this); calculate();">
+              <span class="unit-tag">명</span>
+            </div>
+          </td>
+          <td class="calc-text" style="text-align:center;">퇴직금 연13회÷12</td>
           <td class="amount-cell"><div class="amount-krw" id="amt_loc_crew_krw"></div><div class="amount-idr" id="amt_loc_crew_idr"></div></td>
           <td class="calc-text">인당 800,000원 × 2명 × 13/12</td>
         </tr>
         <tr>
           <td class="item-name">장비기사 (현지인)</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_eng" value="800,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_eng" value="4" oninput="formatField(this); calculate();"><span class="unit-tag">명</span></td>
-          <td class="calc-text">퇴직금 연13회÷12</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_eng" value="4" oninput="formatField(this); calculate();">
+              <span class="unit-tag">명</span>
+            </div>
+          </td>
+          <td class="calc-text" style="text-align:center;">퇴직금 연13회÷12</td>
           <td class="amount-cell"><div class="amount-krw" id="amt_eng_krw"></div><div class="amount-idr" id="amt_eng_idr"></div></td>
           <td class="calc-text">굴삭기3, 로우더1 (인당 800,000원 × 4명 × 13/12)</td>
         </tr>
         <tr>
           <td class="item-name">경리 (현지인)</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_acc" value="900,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_acc" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">명</span></td>
-          <td class="calc-text">퇴직금 연13회÷12</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_acc" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">명</span>
+            </div>
+          </td>
+          <td class="calc-text" style="text-align:center;">퇴직금 연13회÷12</td>
           <td class="amount-cell"><div class="amount-krw" id="amt_acc_krw"></div><div class="amount-idr" id="amt_acc_idr"></div></td>
           <td class="calc-text">인당 900,000원 × 1명 × 13/12</td>
         </tr>
         <tr>
           <td class="item-name">식당 (현지인)</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_cook" value="700,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_cook" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">명</span></td>
-          <td class="calc-text">퇴직금 연13회÷12</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_cook" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">명</span>
+            </div>
+          </td>
+          <td class="calc-text" style="text-align:center;">퇴직금 연13회÷12</td>
           <td class="amount-cell"><div class="amount-krw" id="amt_cook_krw"></div><div class="amount-idr" id="amt_cook_idr"></div></td>
           <td class="calc-text">인당 700,000원 × 1명 × 13/12</td>
         </tr>
         <tr>
           <td class="item-name">기타잡부/경비 (현지인)</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_guard" value="500,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_guard" value="4" oninput="formatField(this); calculate();"><span class="unit-tag">명</span></td>
-          <td class="calc-text">퇴직금 연13회÷12</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_guard" value="4" oninput="formatField(this); calculate();">
+              <span class="unit-tag">명</span>
+            </div>
+          </td>
+          <td class="calc-text" style="text-align:center;">퇴직금 연13회÷12</td>
           <td class="amount-cell"><div class="amount-krw" id="amt_guard_krw"></div><div class="amount-idr" id="amt_guard_idr"></div></td>
           <td class="calc-text">잡부 2, 경철 2 (인당 500,000원 × 4명 × 13/12)</td>
+        </tr>
+        <!-- 은은한 추가 노무비 1, 2 ([소비량/기준] 입력창 완비) -->
+        <tr class="custom-row">
+          <td><input type="text" class="tbl-in tbl-txt" id="name_custom_labor1" placeholder="+ 추가 인건비 1"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="p_custom_labor1" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_custom_labor1" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="v_custom_labor1" placeholder="소비량/기준"></td>
+          <td class="amount-cell"><div class="amount-krw" id="amt_custom_labor1_krw">0 원</div><div class="amount-idr" id="amt_custom_labor1_idr">Rp 0</div></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="rem_custom_labor1" placeholder="비고 입력"></td>
+        </tr>
+        <tr class="custom-row">
+          <td><input type="text" class="tbl-in tbl-txt" id="name_custom_labor2" placeholder="+ 추가 인건비 2"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="p_custom_labor2" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_custom_labor2" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="v_custom_labor2" placeholder="소비량/기준"></td>
+          <td class="amount-cell"><div class="amount-krw" id="amt_custom_labor2_krw">0 원</div><div class="amount-idr" id="amt_custom_labor2_idr">Rp 0</div></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="rem_custom_labor2" placeholder="비고 입력"></td>
         </tr>
 
         <!-- [5] 일반경비 -->
         <tr>
-          <td rowspan="8" class="sec-title cat-exp">일반경비</td>
+          <td rowspan="11" class="sec-title cat-exp">일반경비</td>
           <td class="item-name">복리후생비 (상주식대)</td>
           <td><input type="text" inputmode="numeric" class="tbl-in meal-sync-target" id="p_meal_std" value="3,500" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_meal_std_person" value="15" oninput="formatField(this); syncMealVolumes(); calculate();"><span class="unit-tag">명</span></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="v_meal_std_meals" value="1,350" oninput="formatField(this); calculate();"><span class="unit-tag">식</span></td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_meal_std_person" value="15" oninput="formatField(this); syncMealVolumes(); calculate();">
+              <span class="unit-tag">명</span>
+            </div>
+          </td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="v_meal_std_meals" value="1,350" oninput="formatField(this); calculate();">
+              <span class="unit-tag">식</span>
+            </div>
+          </td>
           <td class="amount-cell"><div class="amount-krw" id="amt_meal_std_krw"></div><div class="amount-idr" id="amt_meal_std_idr"></div></td>
           <td class="calc-text">1일 3식 × 30일 × 상주인원 15명 = 1,350식</td>
         </tr>
         <tr>
           <td class="item-name">덤프기사 식대</td>
           <td><input type="text" inputmode="numeric" class="tbl-in meal-sync-target" id="p_meal_dump" value="3,500" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_meal_dump_person" value="7" oninput="formatField(this); syncMealVolumes(); calculate();"><span class="unit-tag">명</span></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="v_meal_dump_meals" value="546" oninput="formatField(this); calculate();"><span class="unit-tag">식</span></td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_meal_dump_person" value="7" oninput="formatField(this); syncMealVolumes(); calculate();">
+              <span class="unit-tag">명</span>
+            </div>
+          </td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="v_meal_dump_meals" value="546" oninput="formatField(this); calculate();">
+              <span class="unit-tag">식</span>
+            </div>
+          </td>
           <td class="amount-cell"><div class="amount-krw" id="amt_meal_dump_krw"></div><div class="amount-idr" id="amt_meal_dump_idr"></div></td>
           <td class="calc-text">1일 3식 × 작업일수 × 덤프기사 인원</td>
         </tr>
         <tr>
           <td class="item-name">잡자재비</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_mat" value="1,000,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_mat" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">식</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_mat" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">식</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_mat_krw"></div><div class="amount-idr" id="amt_mat_idr"></div></td>
           <td class="calc-text">파이프, 체조, 선별기 및 소모품비</td>
         </tr>
         <tr>
           <td class="item-name">일반소모품비</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_consumable" value="500,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_consumable" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">식</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_consumable" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">식</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_consumable_krw"></div><div class="amount-idr" id="amt_consumable_idr"></div></td>
           <td class="calc-text">장갑, 용접봉 등 현장 소모품</td>
         </tr>
         <tr>
           <td class="item-name">전력비</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_electric" value="300,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_electric" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">식</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_electric" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">식</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_electric_krw"></div><div class="amount-idr" id="amt_electric_idr"></div></td>
           <td class="calc-text">숙소 전기료</td>
         </tr>
         <tr>
           <td class="item-name">가스비</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_gas" value="500,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_gas" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">식</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_gas" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">식</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_gas_krw"></div><div class="amount-idr" id="amt_gas_idr"></div></td>
           <td class="calc-text">식당 가스비</td>
         </tr>
         <tr>
           <td class="item-name">비품 및 소모품비</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_office_supp" value="300,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_office_supp" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">식</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_office_supp" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">식</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_office_supp_krw"></div><div class="amount-idr" id="amt_office_supp_idr"></div></td>
           <td class="calc-text">사무실, 준설선 및 숙소용</td>
         </tr>
         <tr>
           <td class="item-name">각종 보험료 (한국인)</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_ins_kr" value="600,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_ins_kr" value="3" oninput="formatField(this); calculate();"><span class="unit-tag">명</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_ins_kr" value="3" oninput="formatField(this); calculate();">
+              <span class="unit-tag">명</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_ins_kr_krw"></div><div class="amount-idr" id="amt_ins_kr_idr"></div></td>
           <td class="calc-text">3명 (의료, 고용, 산재, 국민연금 등)</td>
         </tr>
         <tr>
           <td class="item-name" style="background:#fcfcfc;">현지인 보험료</td>
-          <td><input type="text" inputmode="decimal" class="tbl-in" id="rate_ins_loc" value="10" oninput="formatField(this, true); calculate();"><span class="unit-tag">%</span></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_ins_loc_dummy" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">식</span></td>
-          <td class="calc-text">현지인 인건비 합계 연동</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="decimal" class="tbl-in" id="rate_ins_loc" value="10" oninput="formatField(this, true); calculate();">
+              <span class="unit-tag">%</span>
+            </div>
+          </td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_ins_loc_dummy" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">식</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_ins_loc_krw"></div><div class="amount-idr" id="amt_ins_loc_idr"></div></td>
-          <td class="calc-text">현지인 총 인건비의 10% 자동 계산</td>
+          <td class="calc-text">현지인 총 인건비의 10% 자동 계산<br><span style="color:#94a3b8;">(현지인 인건비 합계 연동)</span></td>
+        </tr>
+        <!-- 은은한 추가 일반경비 1, 2 ([소비량/기준] 입력창 완비) -->
+        <tr class="custom-row">
+          <td><input type="text" class="tbl-in tbl-txt" id="name_custom_exp1" placeholder="+ 추가 일반경비 1"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="p_custom_exp1" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_custom_exp1" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="v_custom_exp1" placeholder="소비량/기준"></td>
+          <td class="amount-cell"><div class="amount-krw" id="amt_custom_exp1_krw">0 원</div><div class="amount-idr" id="amt_custom_exp1_idr">Rp 0</div></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="rem_custom_exp1" placeholder="비고 입력"></td>
+        </tr>
+        <tr class="custom-row">
+          <td><input type="text" class="tbl-in tbl-txt" id="name_custom_exp2" placeholder="+ 추가 일반경비 2"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="p_custom_exp2" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_custom_exp2" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="v_custom_exp2" placeholder="소비량/기준"></td>
+          <td class="amount-cell"><div class="amount-krw" id="amt_custom_exp2_krw">0 원</div><div class="amount-idr" id="amt_custom_exp2_idr">Rp 0</div></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="rem_custom_exp2" placeholder="비고 입력"></td>
         </tr>
 
         <!-- [6] 기타 및 예비비 -->
         <tr>
-          <td rowspan="2" class="sec-title cat-etc">기타비용<br>및 예비비</td>
+          <td rowspan="4" class="sec-title cat-etc">기타비용<br>및 예비비</td>
           <td class="item-name">지원금 (김철회)</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_support" value="150" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_support_rate" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">비율</span></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="v_support_prod" value="60,000" oninput="formatField(this); calculate();"><span class="unit-tag">m³</span></td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_support_rate" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">비율</span>
+            </div>
+          </td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="v_support_prod" value="60,000" oninput="formatField(this); calculate();">
+              <span class="unit-tag">m³</span>
+            </div>
+          </td>
           <td class="amount-cell"><div class="amount-krw" id="amt_support_krw"></div><div class="amount-idr" id="amt_support_idr"></div></td>
           <td class="calc-text">m³당 150원 × 기준 생산량 (월기준생산량과 자동 연동)</td>
         </tr>
         <tr>
           <td class="item-name">예비비</td>
           <td><input type="text" inputmode="numeric" class="tbl-in" id="p_reserve" value="3,000,000" oninput="formatField(this); calculate();"></td>
-          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_reserve" value="1" oninput="formatField(this); calculate();"><span class="unit-tag">식</span></td>
-          <td style="text-align:center; color:#94a3b8;">-</td>
+          <td>
+            <div class="cell-flex">
+              <input type="text" inputmode="numeric" class="tbl-in" id="q_reserve" value="1" oninput="formatField(this); calculate();">
+              <span class="unit-tag">식</span>
+            </div>
+          </td>
+          <td><div style="text-align:center; color:#cbd5e1; font-weight:700;">-</div></td>
           <td class="amount-cell"><div class="amount-krw" id="amt_reserve_krw"></div><div class="amount-idr" id="amt_reserve_idr"></div></td>
           <td class="calc-text">각종 제세금, 공과금, 추가지출비 등</td>
+        </tr>
+        <!-- 은은한 추가 기타비용 1, 2 ([소비량/기준] 입력창 완비) -->
+        <tr class="custom-row">
+          <td><input type="text" class="tbl-in tbl-txt" id="name_custom_etc1" placeholder="+ 추가 기타비용 1"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="p_custom_etc1" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_custom_etc1" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="v_custom_etc1" placeholder="소비량/기준"></td>
+          <td class="amount-cell"><div class="amount-krw" id="amt_custom_etc1_krw">0 원</div><div class="amount-idr" id="amt_custom_etc1_idr">Rp 0</div></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="rem_custom_etc1" placeholder="비고 입력"></td>
+        </tr>
+        <tr class="custom-row">
+          <td><input type="text" class="tbl-in tbl-txt" id="name_custom_etc2" placeholder="+ 추가 기타비용 2"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="p_custom_etc2" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" inputmode="numeric" class="tbl-in" id="q_custom_etc2" value="0" oninput="formatField(this); calculate();"></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="v_custom_etc2" placeholder="소비량/기준"></td>
+          <td class="amount-cell"><div class="amount-krw" id="amt_custom_etc2_krw">0 원</div><div class="amount-idr" id="amt_custom_etc2_idr">Rp 0</div></td>
+          <td><input type="text" class="tbl-in tbl-txt" id="rem_custom_etc2" placeholder="비고 입력"></td>
         </tr>
       </tbody>
     </table>
   </div>
 
   <div class="note-box">
-    <strong>💡 순이익 계산 원리 안내:</strong><br>
-    - <strong>총 월 매출</strong> = 월 기준 생산량(m³) × 설정하신 판매가격(루피아)<br>
-    - <strong>총 월 순이익</strong> = 총 월 매출 - 총 지출 원가<br>
-    - 상단의 <strong>[판매가격(IDR/m³)]</strong> 칸 2개에 각각 다른 금액을 입력해보시면, 총 순이익과 m³당 남는 마진이 원화와 루피아로 실시간 자동 산출됩니다.
+    <strong>💡 프로그램 활용 안내:</strong><br>
+    - <strong>기준 1·2 지분 배분</strong>: 카드 높이를 줄이고자 지분 배분칸을 우측에 콤팩트하게 배치했습니다. 내 몫과 동업자 몫이 한눈에 비교됩니다.<br>
+    - <strong>추가 입력행 톤다운</strong>: 각 구분 아래의 추가 입력칸들은 평소에는 은은하게 배경에 녹아들고, 숫자를 입력할 때만 가볍게 강조되도록 디자인되었습니다.
   </div>
 </div>
 
 <script>
 // ==========================================
-// [보안 설정] 원하는 비밀번호로 변경하세요
+// [보안 설정] 비밀번호: 0078
 // ==========================================
-const CORRECT_PASS = "0078"; // <-- 기본 비밀번호
+const CORRECT_PASS = "0078";
 
 function checkAuth() {
   const input = document.getElementById("access-pass").value;
@@ -549,9 +1084,14 @@ window.addEventListener("DOMContentLoaded", () => {
     const overlay = document.getElementById("auth-overlay");
     if (overlay) overlay.style.display = "none";
   }
+  // 저장된 사용자 입력 데이터 복원
+  const hasLoaded = loadSavedData();
+  if (hasLoaded) {
+    syncShareRatio();
+    calculate();
+  }
 });
 
-// 우클릭 및 복사 제한 (보안 강화)
 document.addEventListener('contextmenu', e => e.preventDefault());
 
 function getNum(id) {
@@ -600,6 +1140,14 @@ function setFieldVal(id, val, allowDecimal = false) {
   if (el) el.value = formatNumberWithComma(Math.round(val), allowDecimal);
 }
 
+function syncShareRatio() {
+  let myVal = parseFloat(document.getElementById('my_share_ratio').value) || 0;
+  if (myVal > 100) myVal = 100;
+  if (myVal < 0) myVal = 0;
+  document.getElementById('my_share_ratio').value = myVal;
+  document.getElementById('partner_share_ratio').value = (100 - myVal);
+}
+
 function handleTopControl() {
   const topProdEl = document.getElementById('base_prod');
   const topOilEl = document.getElementById('base_oil_price');
@@ -625,7 +1173,7 @@ function handleTopControl() {
   if (supProdEl) supProdEl.value = prodVal;
 
   const dispProd = document.getElementById('disp_base_prod');
-  if (dispProd) dispProd.innerText = prodVal + ' m³';
+  if (dispProd) dispProd.innerText = prodVal + ' m³ 기준';
 
   syncFuelVolumes();
   syncMealVolumes();
@@ -732,13 +1280,15 @@ function calculate() {
   const baseProd = getNum('base_prod');
 
   const dispProd = document.getElementById('disp_base_prod');
-  if (dispProd) dispProd.innerText = baseProd.toLocaleString() + ' m³';
+  if (dispProd) dispProd.innerText = baseProd.toLocaleString() + ' m³ 기준';
 
   function renderRow(krwId, idrId, amountKrw) {
     const roundedKrw = Math.round(amountKrw);
     const roundedIdr = Math.round(amountKrw * krwToIdr);
-    document.getElementById(krwId).innerText = roundedKrw.toLocaleString() + ' 원';
-    document.getElementById(idrId).innerText = 'Rp ' + roundedIdr.toLocaleString();
+    const elK = document.getElementById(krwId);
+    const elI = document.getElementById(idrId);
+    if (elK) elK.innerText = roundedKrw.toLocaleString() + ' 원';
+    if (elI) elI.innerText = 'Rp ' + roundedIdr.toLocaleString();
     return roundedKrw;
   }
 
@@ -750,11 +1300,15 @@ function calculate() {
   const a_fuel_gen2 = renderRow('amt_fuel_gen2_krw', 'amt_fuel_gen2_idr', getNum('v_fuel_gen2') * getNum('p_fuel_gen2'));
   const a_fuel_dump = renderRow('amt_fuel_dump_krw', 'amt_fuel_dump_idr', getNum('v_fuel_dump') * getNum('p_fuel_dump'));
   const a_oil_misc = renderRow('amt_oil_misc_krw', 'amt_oil_misc_idr', getNum('p_oil_misc') * getNum('q_oil_misc'));
+  const a_custom_fuel1 = renderRow('amt_custom_fuel1_krw', 'amt_custom_fuel1_idr', getNum('p_custom_fuel1') * getNum('q_custom_fuel1'));
+  const a_custom_fuel2 = renderRow('amt_custom_fuel2_krw', 'amt_custom_fuel2_idr', getNum('p_custom_fuel2') * getNum('q_custom_fuel2'));
 
   // 2. 임대료
   const a_rent_excav = renderRow('amt_rent_excav_krw', 'amt_rent_excav_idr', getNum('p_rent_excav') * getNum('q_rent_excav'));
   const a_rent_loader = renderRow('amt_rent_loader_krw', 'amt_rent_loader_idr', getNum('p_rent_loader') * getNum('q_rent_loader'));
   const a_rent_dump = renderRow('amt_rent_dump_krw', 'amt_rent_dump_idr', getNum('p_rent_dump') * getNum('q_rent_dump'));
+  const a_custom_rent1 = renderRow('amt_custom_rent1_krw', 'amt_custom_rent1_idr', getNum('p_custom_rent1') * getNum('q_custom_rent1'));
+  const a_custom_rent2 = renderRow('amt_custom_rent2_krw', 'amt_custom_rent2_idr', getNum('p_custom_rent2') * getNum('q_custom_rent2'));
 
   // 3. 유지비
   const a_dredge_part = renderRow('amt_dredge_part_krw', 'amt_dredge_part_idr', getNum('p_dredge_part') * getNum('q_dredge_part'));
@@ -762,6 +1316,8 @@ function calculate() {
   const a_heavy_maint = renderRow('amt_heavy_maint_krw', 'amt_heavy_maint_idr', getNum('p_heavy_maint') * getNum('q_heavy_maint'));
   const a_car_maint = renderRow('amt_car_maint_krw', 'amt_car_maint_idr', getNum('p_car_maint') * getNum('q_car_maint'));
   const a_gen_maint = renderRow('amt_gen_maint_krw', 'amt_gen_maint_idr', getNum('p_gen_maint') * getNum('q_gen_maint'));
+  const a_custom_maint1 = renderRow('amt_custom_maint1_krw', 'amt_custom_maint1_idr', getNum('p_custom_maint1') * getNum('q_custom_maint1'));
+  const a_custom_maint2 = renderRow('amt_custom_maint2_krw', 'amt_custom_maint2_idr', getNum('p_custom_maint2') * getNum('q_custom_maint2'));
 
   // 4. 노무비
   const f13 = 13 / 12;
@@ -772,6 +1328,8 @@ function calculate() {
   const a_acc = renderRow('amt_acc_krw', 'amt_acc_idr', getNum('p_acc') * getNum('q_acc') * f13);
   const a_cook = renderRow('amt_cook_krw', 'amt_cook_idr', getNum('p_cook') * getNum('q_cook') * f13);
   const a_guard = renderRow('amt_guard_krw', 'amt_guard_idr', getNum('p_guard') * getNum('q_guard') * f13);
+  const a_custom_labor1 = renderRow('amt_custom_labor1_krw', 'amt_custom_labor1_idr', getNum('p_custom_labor1') * getNum('q_custom_labor1'));
+  const a_custom_labor2 = renderRow('amt_custom_labor2_krw', 'amt_custom_labor2_idr', getNum('p_custom_labor2') * getNum('q_custom_labor2'));
 
   const loc_labor_sum = a_loc_crew + a_eng + a_acc + a_cook + a_guard;
 
@@ -787,18 +1345,22 @@ function calculate() {
 
   const ins_rate = getNum('rate_ins_loc') / 100;
   const a_ins_loc = renderRow('amt_ins_loc_krw', 'amt_ins_loc_idr', loc_labor_sum * ins_rate * getNum('q_ins_loc_dummy'));
+  const a_custom_exp1 = renderRow('amt_custom_exp1_krw', 'amt_custom_exp1_idr', getNum('p_custom_exp1') * getNum('q_custom_exp1'));
+  const a_custom_exp2 = renderRow('amt_custom_exp2_krw', 'amt_custom_exp2_idr', getNum('p_custom_exp2') * getNum('q_custom_exp2'));
 
   // 6. 기타 및 예비비
   const a_support = renderRow('amt_support_krw', 'amt_support_idr', getNum('p_support') * getNum('q_support_rate') * getNum('v_support_prod'));
   const a_reserve = renderRow('amt_reserve_krw', 'amt_reserve_idr', getNum('p_reserve') * getNum('q_reserve'));
+  const a_custom_etc1 = renderRow('amt_custom_etc1_krw', 'amt_custom_etc1_idr', getNum('p_custom_etc1') * getNum('q_custom_etc1'));
+  const a_custom_etc2 = renderRow('amt_custom_etc2_krw', 'amt_custom_etc2_idr', getNum('p_custom_etc2') * getNum('q_custom_etc2'));
 
-  // 총원가
-  const totalKrw = a_fuel_dredge + a_fuel_excav + a_fuel_loader + a_fuel_gen1 + a_fuel_gen2 + a_fuel_dump + a_oil_misc +
-                   a_rent_excav + a_rent_loader + a_rent_dump +
-                   a_dredge_part + a_dredge_maint + a_heavy_maint + a_car_maint + a_gen_maint +
-                   a_mgr + a_kr_crew + loc_labor_sum +
-                   a_meal_std + a_meal_dump + a_mat + a_consumable + a_electric + a_gas + a_office_supp + a_ins_kr + a_ins_loc +
-                   a_support + a_reserve;
+  // 총원가 합산
+  const totalKrw = a_fuel_dredge + a_fuel_excav + a_fuel_loader + a_fuel_gen1 + a_fuel_gen2 + a_fuel_dump + a_oil_misc + a_custom_fuel1 + a_custom_fuel2 +
+                   a_rent_excav + a_rent_loader + a_rent_dump + a_custom_rent1 + a_custom_rent2 +
+                   a_dredge_part + a_dredge_maint + a_heavy_maint + a_car_maint + a_gen_maint + a_custom_maint1 + a_custom_maint2 +
+                   a_mgr + a_kr_crew + loc_labor_sum + a_custom_labor1 + a_custom_labor2 +
+                   a_meal_std + a_meal_dump + a_mat + a_consumable + a_electric + a_gas + a_office_supp + a_ins_kr + a_ins_loc + a_custom_exp1 + a_custom_exp2 +
+                   a_support + a_reserve + a_custom_etc1 + a_custom_etc2;
 
   const totalIdr = Math.round(totalKrw * krwToIdr);
   const unitKrw = baseProd > 0 ? (totalKrw / baseProd) : 0;
@@ -806,9 +1368,19 @@ function calculate() {
 
   document.getElementById('total_cost_krw').innerText = Math.round(totalKrw).toLocaleString() + ' 원';
   document.getElementById('total_cost_idr').innerText = 'Rp ' + totalIdr.toLocaleString();
-  document.getElementById('unit_cost_disp').innerText = `m³당 생산단가: ${Math.round(unitKrw).toLocaleString()}원 (Rp ${Math.round(unitIdr).toLocaleString()})`;
+  document.getElementById('unit_cost_disp').innerText = `m³당 생산원가: ${Math.round(unitKrw).toLocaleString()}원 (Rp ${Math.round(unitIdr).toLocaleString()})`;
 
-  // [순이익 계산]
+  // 지분율 계산
+  const myRatio = parseFloat(document.getElementById('my_share_ratio').value) || 0;
+  const partnerRatio = 100 - myRatio;
+  const myFactor = myRatio / 100;
+
+  document.getElementById('tag_share_my_a').innerText = `내 몫 (${myRatio}%)`;
+  document.getElementById('tag_share_pt_a').innerText = `동업자 (${partnerRatio}%)`;
+  document.getElementById('tag_share_my_b').innerText = `내 몫 (${myRatio}%)`;
+  document.getElementById('tag_share_pt_b').innerText = `동업자 (${partnerRatio}%)`;
+
+  // [기준 ① 순이익 및 지분 계산]
   const priceA_IDR = getNum('sale_price_a');
   const revenueA_IDR = baseProd * priceA_IDR;
   const profitA_IDR = revenueA_IDR - totalIdr;
@@ -820,6 +1392,17 @@ function calculate() {
   document.getElementById('profit_a_idr').innerText = 'Rp ' + Math.round(profitA_IDR).toLocaleString();
   document.getElementById('profit_a_unit').innerText = `m³당 순이익: ${unitProfitA_KRW.toLocaleString()}원 (Rp ${unitProfitA_IDR.toLocaleString()})`;
 
+  const myProfitA_KRW = Math.round(profitA_KRW * myFactor);
+  const myProfitA_IDR = Math.round(profitA_IDR * myFactor);
+  const ptProfitA_KRW = profitA_KRW - myProfitA_KRW;
+  const ptProfitA_IDR = profitA_IDR - myProfitA_IDR;
+
+  document.getElementById('share_my_a_krw').innerText = myProfitA_KRW.toLocaleString() + ' 원';
+  document.getElementById('share_my_a_idr').innerText = 'Rp ' + myProfitA_IDR.toLocaleString();
+  document.getElementById('share_pt_a_krw').innerText = ptProfitA_KRW.toLocaleString() + ' 원';
+  document.getElementById('share_pt_a_idr').innerText = 'Rp ' + ptProfitA_IDR.toLocaleString();
+
+  // [기준 ② 순이익 및 지분 계산]
   const priceB_IDR = getNum('sale_price_b');
   const revenueB_IDR = baseProd * priceB_IDR;
   const profitB_IDR = revenueB_IDR - totalIdr;
@@ -830,9 +1413,76 @@ function calculate() {
   document.getElementById('profit_b_krw').innerText = profitB_KRW.toLocaleString() + ' 원';
   document.getElementById('profit_b_idr').innerText = 'Rp ' + Math.round(profitB_IDR).toLocaleString();
   document.getElementById('profit_b_unit').innerText = `m³당 순이익: ${unitProfitB_KRW.toLocaleString()}원 (Rp ${unitProfitB_IDR.toLocaleString()})`;
+
+  const myProfitB_KRW = Math.round(profitB_KRW * myFactor);
+  const myProfitB_IDR = Math.round(profitB_IDR * myFactor);
+  const ptProfitB_KRW = profitB_KRW - myProfitB_KRW;
+  const ptProfitB_IDR = profitB_IDR - myProfitB_IDR;
+
+  document.getElementById('share_my_b_krw').innerText = myProfitB_KRW.toLocaleString() + ' 원';
+  document.getElementById('share_my_b_idr').innerText = 'Rp ' + myProfitB_IDR.toLocaleString();
+  document.getElementById('share_pt_b_krw').innerText = ptProfitB_KRW.toLocaleString() + ' 원';
+  document.getElementById('share_pt_b_idr').innerText = 'Rp ' + ptProfitB_IDR.toLocaleString();
+
+  // 변경된 데이터 자동 백그라운드 저장
+  saveAllData(false);
 }
 
 calculate();
+
+// ==========================================
+// [데이터 영구 저장 (localStorage) 기능]
+// ==========================================
+const STORAGE_KEY = "sand_calc_custom_data_v1";
+
+function saveAllData(showToast = false) {
+  const inputs = document.querySelectorAll("input[id]");
+  const data = {};
+  inputs.forEach(input => {
+    if (input.id && input.id !== "access-pass") {
+      data[input.id] = input.value;
+    }
+  });
+  localStorage.setItem(STORAGE_KEY, JSON.stringify(data));
+  
+  if (showToast) {
+    showToastNotification("✅ 모든 입력 데이터가 안전하게 저장되었습니다!");
+  }
+}
+
+function loadSavedData() {
+  const saved = localStorage.getItem(STORAGE_KEY);
+  if (!saved) return false;
+  try {
+    const data = JSON.parse(saved);
+    for (const [id, val] of Object.entries(data)) {
+      const el = document.getElementById(id);
+      if (el) {
+        el.value = val;
+      }
+    }
+    return true;
+  } catch (e) {
+    return false;
+  }
+}
+
+function resetAllData() {
+  if (confirm("저장된 추가 항목과 모든 입력값을 삭제하고 최초 기본값으로 되돌리시겠습니까?")) {
+    localStorage.removeItem(STORAGE_KEY);
+    location.reload();
+  }
+}
+
+function showToastNotification(text) {
+  const toast = document.getElementById("toast-msg");
+  if (!toast) return;
+  toast.innerText = text;
+  toast.classList.add("show");
+  setTimeout(() => {
+    toast.classList.remove("show");
+  }, 2500);
+}
 </script>
 </body>
 </html>
